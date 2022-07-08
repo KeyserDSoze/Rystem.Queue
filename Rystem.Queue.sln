@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rystem.Queue", "src\Rystem.Queue\Rystem.Queue.csproj", "{BB836BBD-B980-447C-8FB3-17EF49D872C2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rystem.Queue.UnitTest", "src\Test\Rystem.Queue.UnitTest\Rystem.Queue.UnitTest.csproj", "{9F6F910A-19B3-4D3C-9BDD-9D746DF58DA7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rystem.Test", "Rystem.Test", "{EF92FE87-8380-4A62-96D7-AA1B047486D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E8859611-C46C-4016-9ABC-8735FDA87F29}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\PackageDeploy.Rystem.Queue.yml = .github\workflows\PackageDeploy.Rystem.Queue.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB836BBD-B980-447C-8FB3-17EF49D872C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB836BBD-B980-447C-8FB3-17EF49D872C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB836BBD-B980-447C-8FB3-17EF49D872C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB836BBD-B980-447C-8FB3-17EF49D872C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F6F910A-19B3-4D3C-9BDD-9D746DF58DA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F6F910A-19B3-4D3C-9BDD-9D746DF58DA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F6F910A-19B3-4D3C-9BDD-9D746DF58DA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F6F910A-19B3-4D3C-9BDD-9D746DF58DA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9F6F910A-19B3-4D3C-9BDD-9D746DF58DA7} = {EF92FE87-8380-4A62-96D7-AA1B047486D2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {539379AE-5659-47DA-8CA0-DB717DBC38FD}
+	EndGlobalSection
+EndGlobal
