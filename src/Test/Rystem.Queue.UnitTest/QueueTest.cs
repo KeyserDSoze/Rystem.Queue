@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -9,6 +10,40 @@ namespace Rystem.Queue.Test.UnitTest
     {
         public string? Id { get; set; }
     }
+    public class SingletonedService
+    {
+        public string Id { get; } = Guid.NewGuid().ToString();
+    }
+    public class ScopedService
+    {
+        public string Id { get; } = Guid.NewGuid().ToString();
+    }
+    public class TransientService
+    {
+        public string Id { get; } = Guid.NewGuid().ToString();
+    }
+    public class SampleQueueManager : IQueueManager<Sample>
+    {
+        private readonly SingletonedService _singletonedService;
+        private readonly ScopedService _scopedService;
+        private readonly TransientService _transientService;
+
+        public SampleQueueManager(SingletonedService singletonedService, ScopedService scopedService, TransientService transientService)
+        {
+            _singletonedService = singletonedService;
+            _scopedService = scopedService;
+            _transientService = transientService;
+        }
+        public Task ManageAsync(IEnumerable<Sample> items)
+        {
+            Console.WriteLine(_singletonedService.Id);
+            Console.WriteLine(_scopedService.Id);
+            Console.WriteLine(_transientService.Id);
+            _ = items;
+            return Task.CompletedTask;
+        }
+    }
+
     public class QueueTest
     {
         private static readonly IServiceProvider _serviceProvider;
@@ -17,15 +52,14 @@ namespace Rystem.Queue.Test.UnitTest
         static QueueTest()
         {
             IServiceCollection services = new ServiceCollection()
-                .AddMemoryQueue<Sample>(x =>
+                .AddSingleton<SingletonedService>()
+                .AddScoped<ScopedService>()
+                .AddTransient<TransientService>()
+                .AddMemoryQueue<Sample, SampleQueueManager>(x =>
                 {
                     x.MaximumBuffer = 1000;
-                    x.Actions.Add(t =>
-                    {
-                        _ = t;
-                        return Task.CompletedTask;
-                    });
                     x.MaximumRetentionCronFormat = "*/3 * * * * *";
+                    x.BackgroundJobCronFormat = "*/1 * * * * *";
                 });
             _serviceProvider = services.BuildServiceProvider();
             _serviceProvider.WarmUpAsync().ToResult();

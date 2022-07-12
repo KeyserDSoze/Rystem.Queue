@@ -10,7 +10,6 @@ namespace Rystem.Queue
             Queues.Enqueue(entity);
             return Task.CompletedTask;
         }
-
         public Task<int> CountAsync()
             => Task.FromResult(Queues.Count);
         public Task<IEnumerable<T>> DequeueAsync(int? top = null)

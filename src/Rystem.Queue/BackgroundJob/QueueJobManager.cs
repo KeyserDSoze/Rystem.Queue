@@ -1,4 +1,5 @@
 ﻿using Cronos;
+using Microsoft.Extensions.DependencyInjection;
 using System.Timers;
 
 namespace Rystem.Queue
@@ -7,11 +8,13 @@ namespace Rystem.Queue
     {
         private readonly IQueue<T> _queue;
         private readonly QueueProperty<T> _property;
+        private readonly IServiceProvider _serviceProvider;
         private DateTime _nextFlush = DateTime.UtcNow;
-        public QueueJobManager(IQueue<T> queue, QueueProperty<T> property)
+        public QueueJobManager(IQueue<T> queue, QueueProperty<T> property, IServiceProvider serviceProvider)
         {
             _queue = queue;
             _property = property;
+            _serviceProvider = serviceProvider;
         }
         public async Task ActionToDoAsync()
         {
@@ -20,8 +23,9 @@ namespace Rystem.Queue
                 List<T> items = new();
                 foreach (var item in await _queue.DequeueAsync().NoContext())
                     items.Add(item);
-                foreach (var action in _property.Actions)
-                    await action.Invoke(items).NoContext();
+                var service = _serviceProvider.CreateScope().ServiceProvider.GetService<IQueueManager<T>>();
+                if (service != null)
+                    await service.ManageAsync(items).NoContext();
                 var expression = CronExpression.Parse(_property.MaximumRetentionCronFormat, _property.MaximumRetentionCronFormat?.Split(' ').Length > 5 ? CronFormat.IncludeSeconds : CronFormat.Standard);
                 _nextFlush = expression.GetNextOccurrence(DateTime.UtcNow, true) ?? DateTime.UtcNow;
             }
