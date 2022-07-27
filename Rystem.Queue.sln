@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rystem.Test", "Rystem.Test"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E8859611-C46C-4016-9ABC-8735FDA87F29}"
 	ProjectSection(SolutionItems) = preProject
+		CODE-OF-CONDUCT.md = CODE-OF-CONDUCT.md
 		.github\workflows\PackageDeploy.Rystem.Queue.yml = .github\workflows\PackageDeploy.Rystem.Queue.yml
 		README.md = README.md
 	EndProjectSection
