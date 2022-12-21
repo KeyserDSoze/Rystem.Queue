@@ -20,14 +20,14 @@ namespace Rystem.Queue
         {
             if (await _queue.CountAsync().NoContext() > _property.MaximumBuffer || _nextFlush < DateTime.UtcNow)
             {
+                var expression = CronExpression.Parse(_property.MaximumRetentionCronFormat, _property.MaximumRetentionCronFormat?.Split(' ').Length > 5 ? CronFormat.IncludeSeconds : CronFormat.Standard);
+                _nextFlush = expression.GetNextOccurrence(DateTime.UtcNow, true) ?? DateTime.UtcNow;
                 List<T> items = new();
                 foreach (var item in await _queue.DequeueAsync().NoContext())
                     items.Add(item);
                 var service = _serviceProvider.CreateScope().ServiceProvider.GetService<IQueueManager<T>>();
                 if (service != null)
                     await service.ManageAsync(items).NoContext();
-                var expression = CronExpression.Parse(_property.MaximumRetentionCronFormat, _property.MaximumRetentionCronFormat?.Split(' ').Length > 5 ? CronFormat.IncludeSeconds : CronFormat.Standard);
-                _nextFlush = expression.GetNextOccurrence(DateTime.UtcNow, true) ?? DateTime.UtcNow;
             }
         }
 
