@@ -25,7 +25,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Rystem.BackgroundJob" Version="3.0.25" />
+		<PackageReference Include="Rystem.BackgroundJob" Version="4.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
