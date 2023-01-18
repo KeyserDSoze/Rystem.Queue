@@ -19,13 +19,13 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/KeyserDSoze/Rystem.Queue</RepositoryUrl>
 		<PackageId>Rystem.Queue</PackageId>
-		<Version>4.1.6</Version>
+		<Version>4.1.7</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Rystem.BackgroundJob" Version="4.1.6" />
+		<PackageReference Include="Rystem.BackgroundJob" Version="4.1.7" />
 	</ItemGroup>
 
 	<ItemGroup>
